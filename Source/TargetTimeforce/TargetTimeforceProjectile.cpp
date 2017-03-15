@@ -22,10 +22,10 @@ ATargetTimeforceProjectile::ATargetTimeforceProjectile()
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
 	ProjectileMovement->UpdatedComponent = CollisionComp;
-	ProjectileMovement->InitialSpeed = 3000.f;
-	ProjectileMovement->MaxSpeed = 3000.f;
+	ProjectileMovement->InitialSpeed = 9000.f;
+	ProjectileMovement->MaxSpeed = 9000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
-	ProjectileMovement->bShouldBounce = true;
+	ProjectileMovement->bShouldBounce = false;
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
@@ -36,7 +36,7 @@ void ATargetTimeforceProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Oth
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
-		FVector forceVector = FVector(0, 0, 1);
+		FVector forceVector = FVector(0, 0, -1);
 		OtherComp->AddImpulseAtLocation(forceVector * hitScalar, GetActorLocation());
 
 		Destroy();
