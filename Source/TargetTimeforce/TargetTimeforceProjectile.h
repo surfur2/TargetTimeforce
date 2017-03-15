@@ -16,6 +16,8 @@ class ATargetTimeforceProjectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovement;
 
+	
+
 public:
 	ATargetTimeforceProjectile();
 
@@ -27,5 +29,8 @@ public:
 	FORCEINLINE class USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	FORCEINLINE class UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Movement)
+		float hitScalar = 1000000.0f;
 };
 

@@ -36,7 +36,8 @@ void ATargetTimeforceProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Oth
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		FVector forceVector = FVector(0, 0, 1);
+		OtherComp->AddImpulseAtLocation(forceVector * hitScalar, GetActorLocation());
 
 		Destroy();
 	}
