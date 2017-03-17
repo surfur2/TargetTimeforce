@@ -116,6 +116,8 @@ void ATargetTimeforceCharacter::SetupPlayerInputComponent(class UInputComponent*
 	if (EnableTouchscreenMovement(PlayerInputComponent) == false)
 	{
 		PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATargetTimeforceCharacter::OnFire);
+		PlayerInputComponent->BindAction("AltFire", IE_Pressed, this, &ATargetTimeforceCharacter::SlowTime);
+		PlayerInputComponent->BindAction("AltFire", IE_Released, this, &ATargetTimeforceCharacter::ResumeTime);
 	}
 
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ATargetTimeforceCharacter::OnResetVR);
@@ -178,6 +180,18 @@ void ATargetTimeforceCharacter::OnFire()
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
 	}
+}
+
+void ATargetTimeforceCharacter::SlowTime()
+{
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.0 / SlowTimeRate);
+	CustomTimeDilation *= SlowTimeRate;
+}
+
+void ATargetTimeforceCharacter::ResumeTime()
+{
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), UGameplayStatics::GetGlobalTimeDilation(GetWorld()) * SlowTimeRate);
+	CustomTimeDilation /= SlowTimeRate;
 }
 
 void ATargetTimeforceCharacter::OnResetVR()

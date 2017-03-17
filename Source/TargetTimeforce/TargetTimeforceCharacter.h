@@ -57,6 +57,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	/** What factor is time slowed by. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float SlowTimeRate;
+
 	/** Gun muzzle's offset from the characters location */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
@@ -81,6 +85,12 @@ protected:
 	
 	/** Fires a projectile. */
 	void OnFire();
+
+	/** Slow time. */
+	void SlowTime();
+
+	/** Resume normal timeflow. */
+	void ResumeTime();
 
 	/** Resets HMD orientation and position in VR. */
 	void OnResetVR();
