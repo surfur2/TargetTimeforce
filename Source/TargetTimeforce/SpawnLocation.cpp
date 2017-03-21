@@ -25,19 +25,13 @@ void ASpawnLocation::BeginPlay()
 
 	spawnVolume = (UBoxComponent*)GetDefaultSubobjectByName(TEXT("SpawnBox"));
 
+	SpawnTarget();
 }
 
 // Called every frame
 void ASpawnLocation::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	float currentTime = FPlatformTime::Seconds();
-	if (lastSpawnTime + spawnTimer < currentTime)
-	{
-		lastSpawnTime = FPlatformTime::Seconds();
-		SpawnTarget();
-	}
 }
 
 // Spawn a target inside the spawning box at a random location
